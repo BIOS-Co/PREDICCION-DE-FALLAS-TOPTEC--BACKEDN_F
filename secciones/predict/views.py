@@ -131,8 +131,8 @@ class DatPredictionView(APIView):
         for prediction in dat_predictions:
             analysis_result = prediction.responsepredict
             # Calcular los valores False de los campos BooleanField de este AnalysisResult
-            total_false = sum([
-                not getattr(analysis_result, field.name)
+            total_true = sum([
+                getattr(analysis_result, field.name) == True
                 for field in analysis_result._meta.fields
                 if isinstance(field, models.BooleanField) and getattr(analysis_result, field.name) is not None
             ])
@@ -141,7 +141,7 @@ class DatPredictionView(APIView):
             serializer = DatPredictionSerializer(prediction)
             # Añadir el total de falses al dato serializado
             prediction_data = serializer.data
-            prediction_data['mala'] = total_false
+            prediction_data['mala'] = total_true
             # Añadir a la lista de datos enriquecidos
             enriched_data.append(prediction_data)
         
@@ -160,6 +160,7 @@ class GenerateExcelView(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data  # Asumiendo que esto es una lista de diccionarios
         
+        print("data", data)
         # Crear un DataFrame con los datos recibidos
         df = pd.DataFrame(data)
 
