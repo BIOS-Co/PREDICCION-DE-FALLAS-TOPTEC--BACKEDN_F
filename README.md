@@ -8,7 +8,7 @@ Descarga e instala las herramientas de compilación de C++.
 Durante la instalación, asegúrate de seleccionar la versión de Visual C++ Build Tools que incluya C++ 14.0 o superior.
 
 El 1 paso es  clonar el repositorio:
-git clone https://github.com/BIOS-Co/PREDICCION-DE-FALLAS-TOPTEC--BACKEDN_F.git
+* git clone https://github.com/BIOS-Co/PREDICCION-DE-FALLAS-TOPTEC--BACKEDN_F.git
 Una vez descargado el siguiente paso es ubicarse en la carpeta que contiene el proyecto y dentro crear un entorno virtual, para esto se deberá de tener instalado python,  la versión recomendada es:
 * Python 3.12
 Su enlace de descarga es el siguiente: Download Python | Python.org
