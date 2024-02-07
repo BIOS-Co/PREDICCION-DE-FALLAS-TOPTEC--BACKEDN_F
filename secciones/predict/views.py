@@ -97,9 +97,9 @@ class process_data_excel_view(APIView):
         try:
             data = request.data
             print("data", data) 
-            file = request.FILES.get('file')
+            file = request.FILES.get('File')
 
-            if not all([file]):
+            if not (file):
                 return Response({'error': 'Faltan parámetros necesarios.'}, status=400)
 
             reponse, inst = load_and_process_data2(file)

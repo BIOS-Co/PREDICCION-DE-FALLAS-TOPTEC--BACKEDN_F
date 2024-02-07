@@ -822,7 +822,10 @@ def load_and_process_data2(file):
                     # Guarda la instancia en la base de datos
                     datos_modelo_predict.save()
 
-                    resultados_por_lote[Lote] = analysis_result_instance
+                    resultados_por_lote[Lote] = {
+                        "analysis_result": analysis_result_instance,
+                        "type": "aut-m1"
+                    }
 
                 except Exception as e:                
                     print(f"Error al guardar el resultado del análisis: {e}") 
@@ -985,7 +988,10 @@ def load_and_process_data2(file):
                     # Guarda la instancia en la base de datos
                     datos_modelo_predict.save()
 
-                    resultados_por_lote[Lote] = analysis_result_instance
+                    resultados_por_lote[Lote] = {
+                        "analysis_result": analysis_result_instance,
+                        "type": "nt_m1"
+                    }
 
                 except Exception as e:                
                     print(f"Error al guardar el resultado del análisis: {e}") 
@@ -1151,7 +1157,12 @@ def load_and_process_data2(file):
                     )                            
                     # Guarda la instancia en la base de datos
                     datos_modelo_predict.save()
-                    resultados_por_lote[Lote] = analysis_result_instance
+                    resultados_por_lote[Lote] = {
+                        "analysis_result": analysis_result_instance,
+                        "type": "nt_m2"
+                    }
+
+
                     
                 
                 except Exception as e:                
@@ -1163,10 +1174,13 @@ def load_and_process_data2(file):
 
     # Convertir las instancias de modelos a un formato serializable
     resultados_serializables = {}
-    for lote, instance in resultados_por_lote.items():
-        # Usar el serializador para convertir la instancia a un formato serializable
-        serializer = AnalysisResultSerializer(instance)
+    for lote, data in resultados_por_lote.items():
+        # Asume que el serializador puede manejar el dato directamente o necesitas acceder a "analysis_result"
+        serializer = AnalysisResultSerializer(data["analysis_result"])
         resultados_serializables[lote] = serializer.data
+        # Añade cualquier otro dato no relacionado directamente con el serializador como se necesite
+        resultados_serializables[lote]["type"] = data["type"]
+
 
     return True, resultados_serializables
 
